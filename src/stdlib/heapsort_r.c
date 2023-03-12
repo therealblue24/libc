@@ -1,13 +1,6 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-/*
- * Swap two areas of size number of bytes.  Although qsort(3) permits random
- * blocks of memory to be sorted, sorting pointers is almost certainly the
- * common case (and, were it not, could easily be made so).  Regardless, it
- * isn't worth optimizing; the SWAP's get sped up by the cache, and pointer
- * arithmetic gets lost in the time required for comparison function calls.
- */
 #define SWAP(a, b, count, size, tmp) \
 	{                                \
 		count = size;                \
@@ -18,7 +11,6 @@
 		} while(--count);            \
 	}
 
-/* Copy one block of size size to another. */
 #define COPY(a, b, count, size, tmp1, tmp2) \
 	{                                       \
 		count = size;                       \
@@ -29,13 +21,6 @@
 		} while(--count);                   \
 	}
 
-/*
- * Build the list into a heap, where a heap is defined such that for
- * the records K1 ... KN, Kj/2 >= Kj for 1 <= j/2 <= j <= N.
- *
- * There two cases.  If j == nmemb, select largest of Ki and Kj.  If
- * j < nmemb, select largest of Ki, Kj and Kj+1.
- */
 #define CREATE(initval, nmemb, par_i, child_i, par, child, size, count, tmp) \
 	{                                                                        \
 		for(par_i = initval; (child_i = par_i * 2) <= nmemb;                 \
@@ -52,23 +37,6 @@
 		}                                                                    \
 	}
 
-/*
- * Select the top of the heap and 'heapify'.  Since by far the most expensive
- * action is the call to the compar function, a considerable optimization
- * in the average case can be achieved due to the fact that k, the displaced
- * elememt, is ususally quite small, so it would be preferable to first
- * heapify, always maintaining the invariant that the larger child is copied
- * over its parent's record.
- *
- * Then, starting from the *bottom* of the heap, finding k's correct place,
- * again maintianing the invariant.  As a result of the invariant no element
- * is 'lost' when k is assigned its correct place in the heap.
- *
- * The time savings from this optimization are on the order of 15-20% for the
- * average case. See Knuth, Vol. 3, page 158, problem 18.
- *
- * XXX Don't break the #define SELECT line, below.  Reiser cpp gets upset.
- */
 #define SELECT(par_i, child_i, nmemb, par, child, size, k, count, tmp1, tmp2) \
 	{                                                                         \
 		for(par_i = 1; (child_i = par_i * 2) <= nmemb; par_i = child_i) {     \
