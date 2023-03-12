@@ -1,0 +1,7 @@
+-std=c2x
+-O2
+-g
+-ffreestanding
+-nostdinc
+-Iinclude/
+-Iarch/aarch64/include
