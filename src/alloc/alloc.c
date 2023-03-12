@@ -23,6 +23,10 @@ void malloc_lock();
 void malloc_unlock();
 FREELIST_DECL_SPECIFIERS LIST_INIT(free_list);
 
+#ifndef NULL
+#define NULL ((void *)0)
+#endif
+
 void defrag_free_list(void)
 {
 	alloc_node_t *block = NULL;
@@ -111,10 +115,11 @@ void free(void *ptr)
 			}
 		}
 		list_add_tail(&current_block->node, &free_list);
-
+		ptr = NULL;
 blockadded:
 		defrag_free_list();
 		malloc_unlock();
+		ptr = NULL;
 	}
 }
 

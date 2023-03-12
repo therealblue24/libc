@@ -1,0 +1,8 @@
+-std=c2x
+-O2
+-g
+-ffreestanding
+-nostdinc
+-I../include/
+-I../arch/aarch64/include
+-I/opt/homebrew/include

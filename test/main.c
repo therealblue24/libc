@@ -1,22 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <setjmp.h>
+#include <cmocka.h>
+
+static void null_test_success(void **state)
+{
+	(void)state;
+}
+
+static void malloc_test(void **state)
+{
+	(void)state;
+	int *a = malloc(4);
+	if(!a)
+		fail();
+	free(a);
+}
 
 int main()
 {
-	int ret = 0;
-	printf("Hello, World! %d %s\n", 5, "str");
-	int *a = (int *)malloc(sizeof(int));
-	printf("%p\n", a);
-	a[0] = 5;
-	printf("%d\n", a[0]);
-	a = realloc(a, sizeof(int) * 3);
-	a[1] = 4;
-	a[2] = 3;
-	printf("%d, %d, %d\n%p\n", a[0], a[1], a[2], a);
-	int *b = (int *)malloc(sizeof(int));
-	printf("%p\n", b);
-	free(a);
-	free(b);
-	return ret;
+	const struct CMUnitTest tests[] = {
+		cmocka_unit_test(null_test_success),
+		cmocka_unit_test(malloc_test),
+	};
+	return cmocka_run_group_tests(tests, NULL, NULL);
 }
