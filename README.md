@@ -7,3 +7,10 @@ what can i say? it's a libc (c23-compliant) implementation.
 * `errno` support
 * `getopt` support
 * `time` support
+## Architectures supported
+* AArch64 (arm64, M1, M2, ...)
+planning to do amd64
+### NOTE
+this libc is tested on macos.
+# Contributing
+no.
