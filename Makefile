@@ -34,9 +34,9 @@ make: $(OBJ) $(ASMOBJ)
 	@$(CC) -o $@ -c $< $(CFLAGS) $(LDFLAGS)
 
 %.o: %.s
-	@echo " AS $<"
+	@echo "	AS $<"
 	@$(AS) -c -o $@ $<
 
 clean:
-	@rm -rf $(OBJ) $(BIN)
-	@echo "	RM $(OBJ) $(BIN)"
+	@rm -rf $(OBJ) $(BIN) $(ASMOBJ)
+	@echo "	RM $(OBJ) $(BIN) $(ASMOBJ)"
