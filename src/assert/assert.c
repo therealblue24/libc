@@ -7,7 +7,7 @@
 											  unsigned int line,
 											  const char *function)
 {
-	printf("%s:%u: assertion in function %s failed %s\n", file, line, function,
-		   expr);
+	printf("%s:%u: assertion in function %s failed expression %s\n", file, line,
+		   function, expr);
 	abort();
 }
