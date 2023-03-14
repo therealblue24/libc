@@ -27,7 +27,7 @@ tests: $(OBJ)
 
 make: $(OBJ) $(ASMOBJ)
 	@ar rcs bin/$(LIB_BIN) $(OBJ)
-	@echo "	AR $(OBJ)"
+	@echo "	GEN $(LIB_BIN)"
 
 %.o: %.c
 	@echo "	CC $<"

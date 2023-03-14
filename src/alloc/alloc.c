@@ -10,6 +10,8 @@
 #define align_up(num, align) (((num) + ((align)-1)) & ~((align)-1))
 #endif
 
+#define alloca(size) __builtin_alloca(size)
+
 typedef struct {
 	ll_t node;
 	size_t size;
