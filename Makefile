@@ -19,24 +19,28 @@ all: dirs make tests
 
 dirs:
 	@mkdir -p ./$(BIN)
-	@echo "	MKDIR $(BIN)"
+	@echo "made dir $(BIN)"
 
 tests: $(OBJ)
 	@$(CC) -o $(BIN)/$(TEST_BIN) $(TEST_SRC) $(TEST_LDFLAGS) $^
-	@echo "	CC $(TEST_SRC)"
+	@echo "compiled test $(TEST_SRC)"
 
 make: $(OBJ) $(ASMOBJ)
 	@ar rcs bin/$(LIB_BIN) $(OBJ)
-	@echo "	GEN $(LIB_BIN)"
+	@echo "made lib $(LIB_BIN)"
 
 %.o: %.c
-	@echo "	CC $<"
+	@echo "compiled $<"
 	@$(CC) -o $@ -c $< $(CFLAGS) $(LDFLAGS)
 
 %.o: %.s
-	@echo "	AS $<"
+	@echo "assembled $<"
 	@$(AS) -c -o $@ $<
+%.cl: %.o
+	@mv $< $@
+	@rm -rf $@
+	@echo "cleaning $<"
 
-clean:
-	@rm -rf $(OBJ) $(BIN) $(ASMOBJ)
-	@echo "	RM $(OBJ) $(BIN) $(ASMOBJ)"
+clean: $(OBJ:.o=.cl) $(ASMOBJ:.o=.cl)
+	@rm -rf bin
+	@echo "cleaning finished"
