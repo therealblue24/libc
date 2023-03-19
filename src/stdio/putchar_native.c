@@ -13,3 +13,9 @@ int putchar(int c)
 	putchar_((char)c);
 	return c;
 }
+
+char putcchar(char c)
+{
+	putchar((int)(c % 256));
+	return c;
+}
