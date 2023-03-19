@@ -1,5 +1,5 @@
 # therealblue24's libc
-What can I say? It's C23-compliant libc implementation.
+What can I say? It's a C23-compliant libc implementation.
 
 # NOTE
 This libc is tested on MacOS. The Makefile for compiling the tests may not work as it needs some tweaking.
