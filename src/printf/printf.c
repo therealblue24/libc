@@ -1097,7 +1097,7 @@ static inline void format_string_loop(output_gadget_t *output,
 		case 's': {
 			const char *p = va_arg(args, char *);
 			if(p == NULL) {
-				out_rev_(output, ")llun(", 7, width, flags);
+				out_rev_(output, ")llun(", 6, width, flags);
 			} else {
 				printf_size_t l = strnlen_s_(
 					p, precision ? precision : PRINTF_MAX_POSSIBLE_BUFFER_SIZE);
