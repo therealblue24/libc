@@ -8,8 +8,7 @@ This libc is tested on MacOS. The Makefile for compiling the tests may not work 
 Make a pull request with an explanation (detail) on what was added.
 
 ## Architectures supported
-* AArch64 (arm64, M1, M2, ...)
-I plan to implement amd64 as well.
+* AArch64 (arm64, M1, M2, ...), I plan to implement amd64 support as well.
 
 ## Not Implemented for now
 * `FILE` and some stdio function
