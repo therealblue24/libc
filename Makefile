@@ -1,10 +1,13 @@
+# Change target here to your platform building for!!!!
+TARGET = aarch64
+
 CC = clang
 CFLAGS = -std=c2x -O2 -g
-LDFLAGS = -ffreestanding -nostdinc -Iinclude/ -Iarch/aarch64/include
-TEST_LDFLAGS = -ffreestanding -nostdinc -Iinclude/ -Iarch/aarch64/include $(BIN)/$(LIB_BIN) -I/opt/homebrew/include -L/opt/homebrew/lib -lcmocka
+LDFLAGS = -ffreestanding -nostdinc -Iinclude/ -Iarch/$(TARGET)/include
+TEST_LDFLAGS = -ffreestanding -nostdinc -Iinclude/ -Iarch/$(TARGET)/include $(BIN)/$(LIB_BIN) -I/opt/homebrew/include -L/opt/homebrew/lib -lcmocka
 
 SRC = $(wildcard src/**/*.c) $(wildcard src/*.c) $(wildcard src/**/**/*.c) $(wildcard src/**/**/**/*.c)
-ASMSRC = $(wildcard arch/aarch64/src/*.s)
+ASMSRC = $(wildcard arch/$(TARGET)/src/*.s)
 ASMOBJ = $(ASMSRC:.s=.o)
 OBJ = $(SRC:.c=.o)
 BIN = bin
@@ -15,7 +18,7 @@ AS = clang
 
 .PHONY: all
 
-all: dirs make tests
+all: dirs make
 
 dirs:
 	@mkdir -p ./$(BIN)
