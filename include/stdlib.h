@@ -107,15 +107,18 @@ void *aligned_alloc(size_t align, size_t size);
 
 /* extensions */
 
-#define sanitize(x, y)                                                                                                                                              \
-	if(!x)                                                                                                                                                          \
+#define sanitize(x, y, z)                                                                                                                                           \
+	z = 0;                                                                                                                                                          \
+	if(!x) {                                                                                                                                                        \
 		printf(                                                                                                                                                     \
 			"NULL! nonnull function \"%s\" in file \"%s\" at line %u had an unsanitized pointer (aka null). program is going to continue but this is a warning.\n", \
 			__func__, __FILE__, __LINE__);                                                                                                                          \
-	x = (void *)malloc(y);
+		x = (void *)malloc(y);                                                                                                                                      \
+		z = 1;                                                                                                                                                      \
+	}
 
-#define hard_sanitize(x, y) \
-	sanitize(x, y);         \
+#define hard_sanitize(x, y, z) \
+	sanitize(x, y, z);         \
 	abort();
 
 #ifdef __cplusplus
