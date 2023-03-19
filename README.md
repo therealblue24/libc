@@ -14,6 +14,7 @@ I plan to implement amd64 support as well.
 # Building
 First, install any sort of C compiler and an assembler. Make sure you are running a unix system. After that, modify the `TARGET` variable in the Makefile to the target that your machine uses. Vaild targets are currently:
 * `aarch64`
+>
 After that, run `$ make`. the output will be in the bin directory.
 ## NOTE
 Currently the build target MUST be the architecture of your machine.
