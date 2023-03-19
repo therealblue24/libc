@@ -9,6 +9,7 @@ Make a pull request with an explanation (detail) on what was added.
 
 ## Architectures supported
 * aarch64 (arm64, M1, M2, ...)
+>
 I plan to implement amd64 support as well.
 
 # Building
