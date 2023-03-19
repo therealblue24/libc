@@ -14,4 +14,4 @@ planning to do amd64
 ### NOTE
 this libc is tested on macos.
 # Contributing
-no.
+Make a pull request with explanation (detail) on what you added.
