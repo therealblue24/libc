@@ -2,7 +2,7 @@
 TARGET = aarch64
 
 CC = clang
-CFLAGS = -std=c2x -O2 -g
+CFLAGS = -std=c2x -O0 -g
 LDFLAGS = -ffreestanding -nostdinc -Iinclude/ -Iarch/$(TARGET)/include
 TEST_LDFLAGS = -ffreestanding -nostdinc -Iinclude/ -Iarch/$(TARGET)/include $(BIN)/$(LIB_BIN) -I/opt/homebrew/include -L/opt/homebrew/lib -lcmocka
 

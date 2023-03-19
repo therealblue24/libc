@@ -1097,7 +1097,7 @@ static inline void format_string_loop(output_gadget_t *output,
 		case 's': {
 			const char *p = va_arg(args, char *);
 			if(p == NULL) {
-				out_rev_(output, ")llun(", 6, width, flags);
+				out_rev_(output, ")llun(", 7, width, flags);
 			} else {
 				printf_size_t l = strnlen_s_(
 					p, precision ? precision : PRINTF_MAX_POSSIBLE_BUFFER_SIZE);
@@ -1129,7 +1129,7 @@ static inline void format_string_loop(output_gadget_t *output,
 			flags |= FLAGS_ZEROPAD | FLAGS_POINTER;
 			uintptr_t value = (uintptr_t)va_arg(args, void *);
 			(value == (uintptr_t)NULL) ?
-				out_rev_(output, ")lin(", 5, width, flags) :
+				out_rev_(output, ")lun(", 5, width, flags) :
 				print_integer(output, (printf_unsigned_value_t)value, false,
 							  BASE_HEX, precision, width, flags);
 			format++;
