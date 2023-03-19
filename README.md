@@ -1,20 +1,19 @@
 # therealblue24's libc
-what can i say? it's a libc (c23-compliant) implementation.
+What can I say? It's a C23-compliant libc implementation.
 
 # NOTE
-this libc is tested on macos. the makefile for compiling the tests may not work as it needs tweaking.
+This libc is tested on MacOS. The Makefile for compiling the tests may not work as it needs some tweaking.
 
 # Contributing
-Make a pull request with explanation (detail) on what you added.
+Make a pull request with an explanation (detail) on what was added.
 
 ## Architectures supported
-* AArch64 (arm64, M1, M2, ...)
-planning to do amd64
+* AArch64 (arm64, M1, M2, ...), I plan to implement amd64 support as well.
 
 ## Not Implemented for now
 * `FILE` and some stdio function
-* `wchar` functions
-* `errno` support
-* `getopt` support
-* `time` support
-* most of `stdlib` (WILL implement)
+* `wchar.h` functions
+* `errno.h` support
+* `getopt.h` support
+* `time.h` support
+* most of `stdlib.h` (WILL implement)
