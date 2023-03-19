@@ -36,11 +36,7 @@ make: $(OBJ) $(ASMOBJ)
 %.o: %.s
 	@echo "assembled $<"
 	@$(AS) -c -o $@ $<
-%.cl: %.o
-	@mv $< $@
-	@rm -rf $@
-	@echo "cleaning $<"
 
-clean: $(OBJ:.o=.cl) $(ASMOBJ:.o=.cl)
-	@rm -rf bin
-	@echo "cleaning finished"
+clean:
+	@rm -rf $(OBJ) $(BIN) $(ASMOBJ)
+	@echo "cleaned"
