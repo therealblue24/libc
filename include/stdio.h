@@ -23,17 +23,19 @@ typedef union _G_fpos64_t {
 struct __sbuf {
 	unsigned char *_base;
 	int _size;
+	int _own;
 };
 
 struct __sFILE_fake {
-	unsigned char *_p;
-	int _r;
-	int _w;
-	short _flags;
-	short _file;
-	struct __sbuf _bf;
-	int _lbfsize;
-	struct _reent *_data;
+	long _p; /* position */
+	int back; /* pushback buf */
+	int _r; /* read space left getc() */
+	int _w; /* write space left putc() */
+	short _flags; /* flags */
+	short _file; /* fileno unix */
+	struct __sbuf _bfr; /* buf (read) */
+	struct __sbuf _bfw; /* buf (write) */
+	int ostat; /* out stat */
 };
 
 #if !defined(__FILE_defined)
