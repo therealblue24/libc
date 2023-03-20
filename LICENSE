@@ -1,0 +1,26 @@
+therealblue24's libc
+copyright (c) 2023 therealblue24 and contributors
+
+redistribution and use of my libc in source and binary forms,
+are allowed unless it is used in a proprietary project, library, or binary.
+
+you can:
+	* copy, change, and use my libc in non-proprietary situations,
+	* merge, distribute my libc in non-proprietary situations,
+you must:
+	* apply this license to forks of my libc.
+	* NOT sell it.
+
+note that you are free to do whatever you want with my libc if you aren't
+using it for proprietary purposes. proprietary use of my libc is NOT allowed.
+
+i am not responsible for any major or minor damages that this libc *can* cause.
+i am not saying it can cause damages, i am saying i am not responsible. you are.
+
+THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
