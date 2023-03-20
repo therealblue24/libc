@@ -2,5 +2,5 @@
 
 [[gnu::weak]] void abort(void)
 {
-	exit(3440);
+    exit(3440);
 }

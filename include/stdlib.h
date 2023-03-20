@@ -10,18 +10,18 @@ extern "C" {
 #endif
 
 typedef struct {
-	int quot;
-	int rem;
+    int quot;
+    int rem;
 } div_t;
 
 typedef struct {
-	long quot;
-	long rem;
+    long quot;
+    long rem;
 } ldiv_t;
 
 typedef struct {
-	long long quot;
-	long long rem;
+    long long quot;
+    long long rem;
 } lldiv_t;
 
 #define EXIT_FAILURE 1
@@ -58,11 +58,11 @@ float strtof(const char *__restrict str, char **__restrict str_end);
 double strtod(const char *__restrict str, char **__restrict str_end);
 long strtol(const char *__restrict str, char **__restrict str_end, int base);
 unsigned long strtoul(const char *__restrict str, char **__restrict str_end,
-					  int base);
+                      int base);
 long long strtoll(const char *__restrict str, char **__restrict str_end,
-				  int base);
+                  int base);
 unsigned long long strtoull(const char *__restrict str,
-							char **__restrict str_end, int base);
+                            char **__restrict str_end, int base);
 /* todo */
 long double strtold(const char *__restrict, char **__restrict);
 /* end todo */
@@ -77,15 +77,15 @@ int rand_r(unsigned int *ctx);
 int rand(void);
 void srand(unsigned seed);
 int heapsort(void *vbase, size_t nmemb, size_t size,
-			 int (*compar)(const void *, const void *));
+             int (*compar)(const void *, const void *));
 int heapsort_r(void *vbase, size_t nmemb, size_t size, void *thunk,
-			   int (*compar)(void *, const void *, const void *));
+               int (*compar)(void *, const void *, const void *));
 void *bsearch(const void *key, const void *ptr, size_t count, size_t size,
-			  int (*comp)(const void *, const void *));
+              int (*comp)(const void *, const void *));
 void qsort_r(void *a, size_t n, size_t es, void *thunk,
-			 int (*cmp)(void *, const void *, const void *));
+             int (*cmp)(void *, const void *, const void *));
 void qsort(void *a, size_t n, size_t es,
-		   int (*compar)(const void *, const void *));
+           int (*compar)(const void *, const void *));
 void *malloc(size_t size);
 void free(void *ptr);
 void *calloc(size_t num, size_t size);
@@ -98,8 +98,8 @@ int posix_memalign(void **memptr, size_t alignment, size_t size);
 #endif /* _POSIX_MEMALIGN_VISIBLE */
 
 #if(defined(__ISO_C_VISIBLE) && __ISO_C_VISIBLE >= 2011) ||  \
-	(defined(__STDC_VERSION) && __STDC_VERSION >= 20112L) || \
-	(defined(__cplusplus) && __cplusplus >= 201103L)
+    (defined(__STDC_VERSION) && __STDC_VERSION >= 20112L) || \
+    (defined(__cplusplus) && __cplusplus >= 201103L)
 
 void *aligned_alloc(size_t align, size_t size);
 
@@ -108,18 +108,18 @@ void *aligned_alloc(size_t align, size_t size);
 /* extensions */
 
 #define sanitize(x, y, z)                                                                                                                                           \
-	z = 0;                                                                                                                                                          \
-	if(!x) {                                                                                                                                                        \
-		printf(                                                                                                                                                     \
-			"NULL! nonnull function \"%s\" in file \"%s\" at line %u had an unsanitized pointer (aka null). program is going to continue but this is a warning.\n", \
-			__func__, __FILE__, __LINE__);                                                                                                                          \
-		x = (void *)malloc(y);                                                                                                                                      \
-		z = 1;                                                                                                                                                      \
-	}
+    z = 0;                                                                                                                                                          \
+    if(!x) {                                                                                                                                                        \
+        printf(                                                                                                                                                     \
+            "NULL! nonnull function \"%s\" in file \"%s\" at line %u had an unsanitized pointer (aka null). program is going to continue but this is a warning.\n", \
+            __func__, __FILE__, __LINE__);                                                                                                                          \
+        x = (void *)malloc(y);                                                                                                                                      \
+        z = 1;                                                                                                                                                      \
+    }
 
 #define hard_sanitize(x, y, z) \
-	sanitize(x, y, z);         \
-	abort();
+    sanitize(x, y, z);         \
+    abort();
 
 #ifdef __cplusplus
 }

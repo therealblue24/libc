@@ -10,27 +10,27 @@
 
 void *memchr(const void *src, int c, size_t n)
 {
-	const unsigned char *s = src;
-	c = (unsigned char)c;
+    const unsigned char *s = src;
+    c = (unsigned char)c;
 
 #ifdef __GNUC__
-	for(; ((uintptr_t)s & ALIGN) && n && *s != c; s++, n--) {
-	}
+    for(; ((uintptr_t)s & ALIGN) && n && *s != c; s++, n--) {
+    }
 
-	if(n && *s != c) {
-		typedef size_t __attribute__((__may_alias__)) word;
-		const word *w;
-		size_t k = ONES * (size_t)c;
+    if(n && *s != c) {
+        typedef size_t __attribute__((__may_alias__)) word;
+        const word *w;
+        size_t k = ONES * (size_t)c;
 
-		for(w = (const void *)s; n >= SS && !HASZERO(*w ^ k); w++, n -= SS) {
-		}
+        for(w = (const void *)s; n >= SS && !HASZERO(*w ^ k); w++, n -= SS) {
+        }
 
-		s = (const void *)w;
-	}
+        s = (const void *)w;
+    }
 #endif
 
-	for(; n && *s != c; s++, n--) {
-	}
+    for(; n && *s != c; s++, n--) {
+    }
 
-	return n ? (void *)(uintptr_t)s : 0;
+    return n ? (void *)(uintptr_t)s : 0;
 }

@@ -15,27 +15,27 @@ extern "C" {
 #define EOF (-1)
 
 typedef union _G_fpos64_t {
-	char __opaque[16];
-	long long __lldata;
-	double __align;
+    char __opaque[16];
+    long long __lldata;
+    double __align;
 } fpos_t;
 
 struct __sbuf {
-	unsigned char *_base;
-	int _size;
-	int _own;
+    unsigned char *_base;
+    int _size;
+    int _own;
 };
 
 struct __sFILE_fake {
-	long _p; /* position */
-	int back; /* pushback buf */
-	int _r; /* read space left getc() */
-	int _w; /* write space left putc() */
-	short _flags; /* flags */
-	short _file; /* fileno unix */
-	struct __sbuf _bfr; /* buf (read) */
-	struct __sbuf _bfw; /* buf (write) */
-	int ostat; /* out stat */
+    long _p; /* position */
+    int back; /* pushback buf */
+    int _r; /* read space left getc() */
+    int _w; /* write space left putc() */
+    short _flags; /* flags */
+    short _file; /* fileno unix */
+    struct __sbuf _bfr; /* buf (read) */
+    struct __sbuf _bfw; /* buf (write) */
+    int ostat; /* out stat */
 };
 
 #if !defined(__FILE_defined)
@@ -121,7 +121,7 @@ int swscanf(const wchar_t *__restrict, const wchar_t *__restrict, ...);
 int vwscanf(const wchar_t *__restrict, __isoc_va_list);
 int vfwscanf(FILE *__restrict, const wchar_t *__restrict, __isoc_va_list);
 int vswscanf(const wchar_t *__restrict, const wchar_t *__restrict,
-			 __isoc_va_list);
+             __isoc_va_list);
 
 void perror(const char *);
 
@@ -133,7 +133,7 @@ int swprintf(wchar_t *__restrict, size_t, const wchar_t *__restrict, ...);
 int vwprintf(const wchar_t *__restrict, __isoc_va_list);
 int vfwprintf(FILE *__restrict, const wchar_t *__restrict, __isoc_va_list);
 int vswprintf(wchar_t *__restrict, size_t, const wchar_t *__restrict,
-			  __isoc_va_list);
+              __isoc_va_list);
 #endif
 
 #ifdef __cplusplus

@@ -4,17 +4,17 @@
 
 char *strdup(const char *str)
 {
-	char *copy = NULL;
+    char *copy = NULL;
 
-	if(str) {
-		size_t len = strlen(str) + 1;
+    if(str) {
+        size_t len = strlen(str) + 1;
 
-		if((copy = malloc(len)) == NULL) {
-			return (NULL);
-		}
+        if((copy = malloc(len)) == NULL) {
+            return (NULL);
+        }
 
-		memcpy(copy, str, len);
-	}
+        memcpy(copy, str, len);
+    }
 
-	return (copy);
+    return (copy);
 }

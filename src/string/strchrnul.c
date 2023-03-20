@@ -9,28 +9,28 @@
 
 char *__strchrnul(const char *s, int c)
 {
-	const size_t *w;
-	size_t k;
-	c = (unsigned char)c;
+    const size_t *w;
+    size_t k;
+    c = (unsigned char)c;
 
-	if(!c) {
-		return (char *)(uintptr_t)s + strlen(s);
-	}
+    if(!c) {
+        return (char *)(uintptr_t)s + strlen(s);
+    }
 
-	for(; (uintptr_t)s % ALIGN; s++) {
-		if(!*s || *(const unsigned char *)s == c) {
-			return (char *)(uintptr_t)s;
-		}
-	}
+    for(; (uintptr_t)s % ALIGN; s++) {
+        if(!*s || *(const unsigned char *)s == c) {
+            return (char *)(uintptr_t)s;
+        }
+    }
 
-	k = ONES * (unsigned long)c;
+    k = ONES * (unsigned long)c;
 
-	for(w = (const void *)s; !HASZERO(*w) && !HASZERO(*w ^ k); w++) {
-		;
-	}
-	for(s = (const void *)w; *s && *(const unsigned char *)s != c; s++) {
-		;
-	}
+    for(w = (const void *)s; !HASZERO(*w) && !HASZERO(*w ^ k); w++) {
+        ;
+    }
+    for(s = (const void *)w; *s && *(const unsigned char *)s != c; s++) {
+        ;
+    }
 
-	return (char *)(uintptr_t)s;
+    return (char *)(uintptr_t)s;
 }

@@ -3,25 +3,25 @@
 
 void *realloc(void *ptr, size_t size)
 {
-	void *new_data = NULL;
-	if(size) {
-		if(!ptr) {
-			return malloc(size);
-		}
-		new_data = malloc(size);
-		if(new_data) {
-			memcpy(new_data, ptr, size);
-			free(ptr);
-		}
-	}
-	return new_data;
+    void *new_data = NULL;
+    if(size) {
+        if(!ptr) {
+            return malloc(size);
+        }
+        new_data = malloc(size);
+        if(new_data) {
+            memcpy(new_data, ptr, size);
+            free(ptr);
+        }
+    }
+    return new_data;
 }
 
 void *reallocf(void *ptr, size_t size)
 {
-	void *p = realloc(ptr, size);
-	if((p == NULL) && (ptr != NULL)) {
-		free(ptr);
-	}
-	return p;
+    void *p = realloc(ptr, size);
+    if((p == NULL) && (ptr != NULL)) {
+        free(ptr);
+    }
+    return p;
 }

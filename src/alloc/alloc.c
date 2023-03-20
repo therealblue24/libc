@@ -13,9 +13,9 @@
 #define alloca(size) __builtin_alloca(size)
 
 typedef struct {
-	ll_t node;
-	size_t size;
-	char *block;
+    ll_t node;
+    size_t size;
+    char *block;
 } alloc_node_t;
 
 #define ALLOC_HEADER_SZ offsetof(alloc_node_t, block)
@@ -31,21 +31,21 @@ FREELIST_DECL_SPECIFIERS LIST_INIT(free_list);
 
 void defrag_free_list(void)
 {
-	alloc_node_t *block = NULL;
-	alloc_node_t *last_block = NULL;
-	alloc_node_t *temp = NULL;
+    alloc_node_t *block = NULL;
+    alloc_node_t *last_block = NULL;
+    alloc_node_t *temp = NULL;
 
-	list_for_each_entry_safe(block, temp, &free_list, node) {
-		if(last_block) {
-			if((((uintptr_t)&last_block->block) + last_block->size) ==
-			   (uintptr_t)block) {
-				last_block->size += ALLOC_HEADER_SZ + block->size;
-				list_del(&block->node);
-				continue;
-			}
-		}
-		last_block = block;
-	}
+    list_for_each_entry_safe(block, temp, &free_list, node) {
+        if(last_block) {
+            if((((uintptr_t)&last_block->block) + last_block->size) ==
+               (uintptr_t)block) {
+                last_block->size += ALLOC_HEADER_SZ + block->size;
+                list_del(&block->node);
+                continue;
+            }
+        }
+        last_block = block;
+    }
 }
 
 [[gnu::weak]] void malloc_init(void)
@@ -54,12 +54,12 @@ void defrag_free_list(void)
 
 [[gnu::weak]] void malloc_lock()
 {
-	// Intentional no-op
+    // Intentional no-op
 }
 
 [[gnu::weak]] void malloc_unlock()
 {
-	// Intentional no-op
+    // Intentional no-op
 }
 
 extern void *sbrk(intptr_t increment);
@@ -67,73 +67,73 @@ void *ptr_loc = 0;
 
 void *malloc(size_t size)
 {
-	if(ptr_loc == 0) {
-		ptr_loc = sbrk(0);
-		malloc_addblock(ptr_loc, (1024 * 1024));
-	}
-	void *ptr = NULL;
-	alloc_node_t *found_block = NULL;
-	if(size > 0) {
-		size = align_up(size, sizeof(void *));
-		malloc_lock();
-		list_for_each_entry(found_block, &free_list, node) {
-			if(found_block->size >= size) {
-				ptr = &found_block->block;
-				break;
-			}
-		}
-		if(ptr) {
-			if((found_block->size - size) >= MIN_ALLOC_SZ) {
-				alloc_node_t *new_block =
-					(alloc_node_t *)((uintptr_t)(&found_block->block) + size);
-				new_block->size = found_block->size - size - ALLOC_HEADER_SZ;
-				found_block->size = size;
-				list_insert(&new_block->node, &found_block->node,
-							found_block->node.next);
-			}
-			list_del(&found_block->node);
-		}
-		malloc_unlock();
-	}
-	if(ptr == NULL) {
-		ptr_loc += (1024 * 1024);
-		malloc_addblock(ptr_loc, (1024 * 1024));
-		return malloc(size);
-	}
-	return ptr;
+    if(ptr_loc == 0) {
+        ptr_loc = sbrk(0);
+        malloc_addblock(ptr_loc, (1024 * 1024));
+    }
+    void *ptr = NULL;
+    alloc_node_t *found_block = NULL;
+    if(size > 0) {
+        size = align_up(size, sizeof(void *));
+        malloc_lock();
+        list_for_each_entry(found_block, &free_list, node) {
+            if(found_block->size >= size) {
+                ptr = &found_block->block;
+                break;
+            }
+        }
+        if(ptr) {
+            if((found_block->size - size) >= MIN_ALLOC_SZ) {
+                alloc_node_t *new_block =
+                    (alloc_node_t *)((uintptr_t)(&found_block->block) + size);
+                new_block->size = found_block->size - size - ALLOC_HEADER_SZ;
+                found_block->size = size;
+                list_insert(&new_block->node, &found_block->node,
+                            found_block->node.next);
+            }
+            list_del(&found_block->node);
+        }
+        malloc_unlock();
+    }
+    if(ptr == NULL) {
+        ptr_loc += (1024 * 1024);
+        malloc_addblock(ptr_loc, (1024 * 1024));
+        return malloc(size);
+    }
+    return ptr;
 }
 
 void free(void *ptr)
 {
-	if(ptr) {
-		alloc_node_t *current_block = container_of(ptr, alloc_node_t, block);
-		alloc_node_t *free_block = NULL;
-		malloc_lock();
-		list_for_each_entry(free_block, &free_list, node) {
-			if(free_block > current_block) {
-				list_insert(&current_block->node, free_block->node.prev,
-							&free_block->node);
-				goto blockadded;
-			}
-		}
-		list_add_tail(&current_block->node, &free_list);
-		ptr = NULL;
+    if(ptr) {
+        alloc_node_t *current_block = container_of(ptr, alloc_node_t, block);
+        alloc_node_t *free_block = NULL;
+        malloc_lock();
+        list_for_each_entry(free_block, &free_list, node) {
+            if(free_block > current_block) {
+                list_insert(&current_block->node, free_block->node.prev,
+                            &free_block->node);
+                goto blockadded;
+            }
+        }
+        list_add_tail(&current_block->node, &free_list);
+        ptr = NULL;
 blockadded:
-		defrag_free_list();
-		malloc_unlock();
-		ptr = NULL;
-	}
+        defrag_free_list();
+        malloc_unlock();
+        ptr = NULL;
+    }
 }
 
 void malloc_addblock(void *addr, size_t size)
 {
-	alloc_node_t *new_memory_block =
-		(void *)align_up((uintptr_t)addr, sizeof(void *));
-	new_memory_block->size =
-		(uintptr_t)addr + size - (uintptr_t)new_memory_block - ALLOC_HEADER_SZ;
-	malloc_lock();
-	list_add(&new_memory_block->node, &free_list);
-	malloc_unlock();
+    alloc_node_t *new_memory_block =
+        (void *)align_up((uintptr_t)addr, sizeof(void *));
+    new_memory_block->size =
+        (uintptr_t)addr + size - (uintptr_t)new_memory_block - ALLOC_HEADER_SZ;
+    malloc_lock();
+    list_add(&new_memory_block->node, &free_list);
+    malloc_unlock();
 }
 
 #undef list_entry

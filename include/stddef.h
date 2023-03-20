@@ -18,13 +18,13 @@
 #define offsetof(type, member) __builtin_offsetof(type, member)
 #else
 #define offsetof(type, member) \
-	((size_t)((char *)&(((type *)0)->member) - (char *)0))
+    ((size_t)((char *)&(((type *)0)->member) - (char *)0))
 #endif
 
 #pragma mark - max_align_t -
 
 #if(defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L) || \
-	(defined(__cplusplus) && __cplusplus >= 201103L)
+    (defined(__cplusplus) && __cplusplus >= 201103L)
 
 typedef long double max_align_t;
 #endif
