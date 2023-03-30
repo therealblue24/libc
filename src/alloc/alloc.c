@@ -29,7 +29,7 @@ FREELIST_DECL_SPECIFIERS LIST_INIT(free_list);
 #define NULL ((void *)0)
 #endif
 
-void defrag_free_list(void)
+static void defrag_free_list(void)
 {
     alloc_node_t *block = NULL;
     alloc_node_t *last_block = NULL;
@@ -125,7 +125,7 @@ blockadded:
     }
 }
 
-void malloc_addblock(void *addr, size_t size)
+static void malloc_addblock(void *addr, size_t size)
 {
     alloc_node_t *new_memory_block =
         (void *)align_up((uintptr_t)addr, sizeof(void *));

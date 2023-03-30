@@ -9,8 +9,6 @@
 extern "C" {
 #endif
 
-#pragma mark - Definitions -
-
 #undef EOF
 #define EOF (-1)
 
@@ -43,7 +41,10 @@ typedef struct __sFILE_fake FILE;
 #define __FILE_defined
 #endif
 
+int putchar(int c);
+char putcchar(char c);
 int puts(const char *);
+int putsraw(const char *);
 
 #if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
 int asprintf(char **, const char *, ...);

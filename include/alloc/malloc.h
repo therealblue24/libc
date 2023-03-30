@@ -8,7 +8,7 @@ extern "C" {
 #include <stdlib.h>
 #include <alloc/ll.h>
 
-void malloc_addblock(void *addr, size_t size);
+static void malloc_addblock(void *addr, size_t size);
 void malloc_init(void);
 
 #ifdef __cplusplus
