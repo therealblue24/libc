@@ -3,3 +3,5 @@ bin
 *.a
 *.ignore
 .cache
+compile_flags.txt
+.clang-format
