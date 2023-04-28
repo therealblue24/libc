@@ -9,18 +9,19 @@ Make a pull request with an explanation (detail) on what was added.
 
 ## Architectures supported
 * aarch64 (arm64, M1, M2, ...)
+* x86_64 (only 64-bit x86_64)
 >
-I plan to implement amd64 support as well.
 
 # Building
 First, install any sort of C compiler and an assembler. Make sure you are running a unix system. After that, modify the `TARGET` variable in the Makefile to the target that your machine uses. Vaild targets are currently:
 * `aarch64`
+* `x86_64`
 >
 After that, run `$ make`. the output will be in the bin directory.
 ## NOTE
 Currently the build target MUST be the architecture of your machine.
 ## NOTE 2
-Only the `aarch64` architecture is tested because I have an M2 Mac, so if you experience any problems with architectures that arent `aarch64` then I don't know what you can do.
+Only the `aarch64` architecture is tested because I have an M2 Mac, so if you experience any problems with architectures that arent `aarch64` then I probaly will just forward it to somebody else.
 
 ## Not Implemented for now
 * `FILE` and some stdio function
