@@ -15,7 +15,7 @@ void __libc_fini_array(void);
 
 int entry(void);
 
-[[noreturn]] void __stack_chk_fail(void);
+void __stack_chk_fail(void);
 
 #ifndef DISABLE_STACK_CHK_GUARD_RUNTIME_CONFIG
 uintptr_t __stack_chk_guard_init(void);
