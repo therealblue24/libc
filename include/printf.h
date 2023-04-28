@@ -12,10 +12,10 @@ extern "C" {
 #ifdef __GNUC__
 #if((__GNUC__ == 4 && __GNUC_MINOR__ >= 4) || __GNUC__ > 4)
 #define ATTR_PRINTF(one_based_format_index, first_arg) \
-    __attribute__((format(gnu_printf, (one_based_format_index), (first_arg))))
+    [[gnu::format(gnu_printf, (one_based_format_index), (first_arg))]]
 #else
 #define ATTR_PRINTF(one_based_format_index, first_arg) \
-    __attribute__((format(printf, (one_based_format_index), (first_arg))))
+    [[gnu::format(printf, (one_based_format_index), (first_arg))]]
 #endif
 #define ATTR_VPRINTF(one_based_format_index) \
     ATTR_PRINTF((one_based_format_index), 0)
