@@ -30,3 +30,13 @@ Only the `aarch64` architecture is tested because I have an M2 Mac, so if you ex
 * `getopt` support
 * `time` support
 * most of `stdlib` (WILL implement)
+
+## Compatibilty Matrix (platform-dependant)
+| Feature    | Compatible   | aarch64 | x86_64  |
+| ---------- | ------------ | ------- | ------- |
+| setjmp.h   | Yes          | Yes     | Yes     |
+| CRT        | Not Finished | Yes     | Planned |
+| stdint.h   | Yes          | Yes     | Yes     |
+| limits.h   | Yes          | Yes     | Yes     |
+| Endianness | No           | No      | No      |
+| fatptr_t   | Not Finished | No      | No      |
