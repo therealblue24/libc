@@ -14,4 +14,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Actually build the thing
-      run: make ci_build TARGET=x86_64
+      run: make -f CIMakefile
