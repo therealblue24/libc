@@ -54,12 +54,12 @@ static void defrag_free_list(void)
 
 [[gnu::weak]] void malloc_lock()
 {
-    // Intentional no-op
+    /* Here for compatibilty */
 }
 
 [[gnu::weak]] void malloc_unlock()
 {
-    // Intentional no-op
+    /* Here for compatibilty */
 }
 
 extern void *sbrk(intptr_t increment);
