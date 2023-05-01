@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include <setjmp.h>
 
 #define fail(x) _fail(__func__, x)
 #define ok(x) _ok(__func__)

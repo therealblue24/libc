@@ -23,7 +23,7 @@ dirs:
 	mkdir -p ./$(BIN)
 
 tests: $(OBJ)
-	$(CC) -o $(BIN)/$(TEST_BIN) $(TEST_SRC) $(TEST_LDFLAGS) $^
+	$(CC) -o $(BIN)/$(TEST_BIN) $(TEST_SRC) $(TEST_LDFLAGS)
 
 make: $(OBJ) $(ASMOBJ)
 	ar rcs bin/$(LIB_BIN) $(OBJ)

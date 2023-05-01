@@ -24,7 +24,7 @@ dirs:
 	@echo "made dir $(BIN)"
 
 tests: $(OBJ)
-	@$(CC) -o $(BIN)/$(TEST_BIN) $(TEST_SRC) $(TEST_LDFLAGS) $^
+	@$(CC) -o $(BIN)/$(TEST_BIN) $(TEST_SRC) $(TEST_LDFLAGS)
 	@echo "compiled test $(TEST_SRC)"
 
 make: $(OBJ) $(ASMOBJ)
