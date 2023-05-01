@@ -1,4 +1,4 @@
-name: Linux x86_64
+name: MacOS aarch64 (linux was stubborn with malloc)
 
 on:
   push:
