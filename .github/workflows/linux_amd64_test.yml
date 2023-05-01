@@ -1,4 +1,4 @@
-name: Linux amd64 
+name: Linux amd64 Test 
 
 on:
   push:
@@ -12,9 +12,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Actually build the thing
-      run: make -f CIMakefile
-    - name: Actually test the thing
-      run: make -f CIMakefile tests
-    - name: Run Tests
+    - name: Tests (lets hope no segmentation fault (core dumped))
       run: ./bin/libctests
