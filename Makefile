@@ -20,11 +20,7 @@ AS = clang
 
 all: dirs make
 
-ci_build: $(OBJ) $(ASMOBJ)
-	@echo "dont use this in actual applications"
-	TARGET=x86_64
-	@ar rcs bin/$(LIB_BIN) $(OBJ)
-	@echo "made lib $(LIB_BIN)"
+ci_build: dirs make 
 	@rm -rf $(OBJ) $(ASMOBJ)
 
 dirs:
