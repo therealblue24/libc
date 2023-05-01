@@ -1,4 +1,4 @@
-TARGET = aarch64
+TARGET = x86_64 
 
 CC = clang
 CFLAGS = -std=gnu2x -O2 -g

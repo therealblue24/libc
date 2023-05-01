@@ -1,4 +1,4 @@
-name: MacOS aarch64 (linux was stubborn with malloc)
+name: Linux amd64 
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Actually build the thing
