@@ -3,7 +3,7 @@ TARGET = x86_64
 CC = clang
 CFLAGS = -std=gnu2x -O2 -g
 LDFLAGS = -ffreestanding -nostdinc -Iinclude/ -Iarch/$(TARGET)/include
-TEST_LDFLAGS = -ffreestanding -nostdinc -Iinclude/ -Iarch/$(TARGET)/include $(BIN)/$(LIB_BIN) -I/opt/homebrew/include -L/opt/homebrew/lib -lcmocka
+TEST_LDFLAGS = -ffreestanding -nostdinc -Iinclude/ -Iarch/$(TARGET)/include $(BIN)/$(LIB_BIN)
 
 SRC = $(wildcard src/**/*.c) $(wildcard src/*.c) $(wildcard src/**/**/*.c) $(wildcard src/**/**/**/*.c)
 ASMSRC = $(wildcard arch/$(TARGET)/src/*.s)

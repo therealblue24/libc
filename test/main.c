@@ -2,30 +2,34 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <setjmp.h>
-#include <cmocka.h>
 
-static void null_test_success(void **state)
+#define fail(x) _fail(__func__, x)
+#define ok(x) _ok(__func__)
+
+int status = 0;
+
+void _fail(const char *test, const char *msg)
 {
-    (void)state;
+    printf("%s: [%s]\n", test, msg);
+    status = 1;
 }
 
-static void malloc_test(void **state)
+void _ok(const char *test)
 {
-    (void)state;
+    printf("%s: [ok]\n", test);
+}
+
+static void malloc_test()
+{
     int *a = malloc(4);
     if(!a)
-        fail();
+        fail("allocation failed");
     free(a);
+    ok();
 }
 
 int main()
 {
-    const struct CMUnitTest tests[] = {
-        cmocka_unit_test(null_test_success),
-        cmocka_unit_test(malloc_test),
-    };
-    cmocka_run_group_tests(tests, NULL, NULL);
-    exit(0);
-    printf("How did you get here?\n");
-    return 0;
+    malloc_test();
+    return status;
 }
