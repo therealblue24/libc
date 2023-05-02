@@ -22,7 +22,7 @@ all: dirs make
 dirs:
 	mkdir -p ./$(BIN)
 
-tests: $(OBJ)
+tests: all
 	$(CC) -o $(BIN)/$(TEST_BIN) $(TEST_SRC) $(TEST_LDFLAGS)
 
 make: $(OBJ) $(ASMOBJ)

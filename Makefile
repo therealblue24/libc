@@ -23,7 +23,7 @@ dirs:
 	@mkdir -p ./$(BIN)
 	@echo "made dir $(BIN)"
 
-tests: $(OBJ)
+tests: all
 	@$(CC) -o $(BIN)/$(TEST_BIN) $(TEST_SRC) $(TEST_LDFLAGS)
 	@echo "compiled test $(TEST_SRC)"
 
