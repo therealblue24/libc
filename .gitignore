@@ -5,3 +5,5 @@ bin
 .cache
 compile_flags.txt
 .clang-format
+.DS_Store
+\#*
