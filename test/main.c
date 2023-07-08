@@ -15,7 +15,8 @@ void _fail(const char *test, const char *msg)
 
 void _ok(const char *test)
 {
-    printf("%s: [ok]\n", test);
+    if(!status)
+        printf("%s: [ok]\n", test);
 }
 
 static void malloc_test()
