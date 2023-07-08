@@ -21,3 +21,5 @@ jobs:
         path: bin/tr24libc.a
     - name: Actually build the test
       run: make -f CIMakefile tests
+    - name: Actually test the thing
+      run: ./bin/libctests
