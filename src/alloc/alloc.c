@@ -96,8 +96,8 @@ void *malloc(size_t size)
         malloc_unlock();
     }
     if(ptr == NULL) {
-        ptr_loc += (1024 * 1024);
-        malloc_addblock(ptr_loc, (1024 * 1024));
+        ptr_loc += (1024 * 1024) + size;
+        malloc_addblock(ptr_loc, (1024 * 1024) + size);
         return malloc(size);
     }
     return ptr;
