@@ -6,6 +6,7 @@
 extern int pipe(int[2]);
 extern int close(int);
 extern long write(int, const char *, unsigned long);
+extern int getpagesize();
 
 #define fail(x) _fail(__func__, x)
 #define ok(x) _ok(__func__)
@@ -88,6 +89,9 @@ static void align_alloc_test()
     if(!validate_ptr(a, 4)) {
         fail("not in address space");
     }
+    if((uintptr_t)a % 4096 != 0) {
+        fail("pointer not aligned");
+    }
     if(a)
         *a = 2;
     long *b = aligned_alloc(4096, 8);
@@ -96,6 +100,9 @@ static void align_alloc_test()
     }
     if(!validate_ptr(b, 8)) {
         fail("not in address space");
+    }
+    if((uintptr_t)b % 4096 != 0) {
+        fail("pointer not aligned");
     }
     if(b)
         *b = 4;
@@ -114,6 +121,9 @@ static void valloc_test()
     }
     if(!validate_ptr(a, 4)) {
         fail("not in address space");
+    }
+    if((uintptr_t)a % getpagesize() != 0) {
+        fail("pointer not aligned to page size");
     }
     if(a)
         *a = 2;
