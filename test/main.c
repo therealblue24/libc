@@ -14,6 +14,7 @@ int status = 0;
 int fd[2];
 int testnum_ok = 0;
 int testnum_notok = 0;
+int already_failed = 0;
 
 static void _init_ptrv()
 {
@@ -44,10 +45,14 @@ static int validate_ptr(const void *ptr, long bytes)
 
 void _fail(const char *test, const char *msg)
 {
-    printf("%s: [%s]\n", test, msg);
+    if(!already_failed)
+        printf("%s: [%s]\n", test, msg);
     status = 1;
-    testnum_notok++;
-    testnum_ok--;
+    if(!already_failed)
+        testnum_notok++;
+    if(!already_failed)
+        testnum_ok--;
+    already_failed = 1;
 }
 
 void _ok(const char *test)
@@ -55,6 +60,7 @@ void _ok(const char *test)
     if(!status)
         printf("%s: [ok]\n", test);
     testnum_ok++;
+    already_failed = 0;
 }
 
 static void malloc_test()
@@ -66,8 +72,53 @@ static void malloc_test()
     if(!validate_ptr(a, 4)) {
         fail("not in address space");
     }
-    *a = 2;
-    free(a);
+    if(a)
+        *a = 2;
+    if(a)
+        free(a);
+    ok();
+}
+
+static void align_alloc_test()
+{
+    int *a = aligned_alloc(4096, 4);
+    if(!a) {
+        fail("allocation failed");
+    }
+    if(!validate_ptr(a, 4)) {
+        fail("not in address space");
+    }
+    if(a)
+        *a = 2;
+    long *b = aligned_alloc(4096, 8);
+    if(!b) {
+        fail("allocation failed");
+    }
+    if(!validate_ptr(b, 8)) {
+        fail("not in address space");
+    }
+    if(b)
+        *b = 4;
+    if(a)
+        free(a);
+    if(b)
+        free(b);
+    ok();
+}
+
+static void valloc_test()
+{
+    int *a = valloc(4);
+    if(!a) {
+        fail("allocation failed");
+    }
+    if(!validate_ptr(a, 4)) {
+        fail("not in address space");
+    }
+    if(a)
+        *a = 2;
+    if(a)
+        free(a);
     ok();
 }
 
@@ -75,6 +126,8 @@ int main()
 {
     _init_ptrv();
     malloc_test();
+    align_alloc_test();
+    valloc_test();
     _deinit_ptrv();
     printf("\nTotal of %d tests, %d passed and %d failed.\n",
            testnum_ok + testnum_notok, testnum_ok, testnum_notok);

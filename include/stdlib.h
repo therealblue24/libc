@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <wctype.h>
+#include <detail/internal.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -87,23 +88,14 @@ void qsort_r(void *a, size_t n, size_t es, void *thunk,
 void qsort(void *a, size_t n, size_t es,
            int (*compar)(const void *, const void *));
 void *malloc(size_t size);
+void *valloc(size_t size);
 void free(void *ptr);
 void *calloc(size_t num, size_t size);
 void *realloc(void *ptr, size_t size);
 void *reallocf(void *ptr, size_t size);
 
-#ifdef _POSIX_MEMALIGN_VISIBLE
-
 int posix_memalign(void **memptr, size_t alignment, size_t size);
-#endif /* _POSIX_MEMALIGN_VISIBLE */
-
-#if(defined(__ISO_C_VISIBLE) && __ISO_C_VISIBLE >= 2011) ||  \
-    (defined(__STDC_VERSION) && __STDC_VERSION >= 20112L) || \
-    (defined(__cplusplus) && __cplusplus >= 201103L)
-
 void *aligned_alloc(size_t align, size_t size);
-
-#endif /* jumble */
 
 #ifdef _TR24_SOURCE
 #include <detail/tr24ext.h>

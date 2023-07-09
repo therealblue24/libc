@@ -3,9 +3,11 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <errno.h>
 
 extern int brk(void *);
 extern void *sbrk(int);
+extern int getpagesize();
 
 #define HEADER_SIZE 8
 
@@ -136,7 +138,7 @@ static int lower_bucket_limit(size_t bucket)
     return 1;
 }
 
-void *malloc(size_t size)
+static void *_malloc(size_t size)
 {
     size_t original_bucket, bucket;
 
@@ -200,6 +202,73 @@ void *malloc(size_t size)
     }
 
     return NULL;
+}
+
+void *malloc(size_t size)
+{
+    return _malloc(size);
+}
+
+void *valloc(size_t size)
+{
+    return aligned_alloc(getpagesize(), size);
+}
+
+int posix_memalign(void **res, size_t align, size_t len)
+{
+    unsigned char *mem, *new, *end;
+    size_t header, footer;
+
+    if((align & -align) != align)
+        return EINVAL;
+    if(len > SIZE_MAX - align)
+        return ENOMEM;
+
+    if(align <= 4 * sizeof(size_t)) {
+        if(!(mem = _malloc(len)))
+            return errno;
+        *res = mem;
+        return 0;
+    }
+
+    if(!(mem = _malloc(len + align - 1)))
+        return errno;
+
+    header = ((size_t *)mem)[-1];
+    end = mem + (header & -8);
+    footer = ((size_t *)end)[-2];
+    new = (void *)((uintptr_t)mem + align - 1 & -align);
+
+    if(!(header & 7)) {
+        ((size_t *)new)[-2] = ((size_t *)mem)[-2] + (new - mem);
+        ((size_t *)new)[-1] = ((size_t *)mem)[-1] - (new - mem);
+        *res = new;
+        return 0;
+    }
+
+    ((size_t *)mem)[-1] = header & 7 | new - mem;
+    ((size_t *)new)[-2] = footer & 7 | new - mem;
+    ((size_t *)new)[-1] = header & 7 | end - new;
+    ((size_t *)end)[-2] = footer & 7 | end - new;
+
+    if(new != mem)
+        free(mem);
+    *res = new;
+    return 0;
+}
+
+void *aligned_alloc(size_t align, size_t size)
+{
+    void *res = _malloc(align + size);
+    int val = posix_memalign((void *)&res, align, size);
+    if(val)
+        return NULL;
+    return res;
+}
+
+[[gnu::weak]] void *aligned_malloc(size_t align, size_t size)
+{
+    return aligned_alloc(align, ((size / align) + 1) * align);
 }
 
 void free(void *ptr)

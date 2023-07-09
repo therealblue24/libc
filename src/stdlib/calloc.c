@@ -17,3 +17,12 @@ void *calloc(size_t num, size_t size)
     }
     return ptr;
 }
+
+void *zalloc(size_t size)
+{
+    void *ptr = malloc(size);
+    if(ptr) {
+        memset(ptr, 0, size);
+    }
+    return ptr;
+}
