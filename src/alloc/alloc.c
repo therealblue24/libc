@@ -3,7 +3,6 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include <errno.h>
 
 extern int brk(void *);
 extern void *sbrk(int);
@@ -220,19 +219,19 @@ int posix_memalign(void **res, size_t align, size_t len)
     size_t header, footer;
 
     if((align & -align) != align)
-        return EINVAL;
+        return 1;
     if(len > SIZE_MAX - align)
-        return ENOMEM;
+        return 2;
 
     if(align <= 4 * sizeof(size_t)) {
         if(!(mem = _malloc(len)))
-            return errno;
+            return 3;
         *res = mem;
         return 0;
     }
 
     if(!(mem = _malloc(len + align - 1)))
-        return errno;
+        return 4;
 
     header = ((size_t *)mem)[-1];
     end = mem + (header & -8);
