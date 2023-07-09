@@ -16,6 +16,9 @@ int fd[2];
 int testnum_ok = 0;
 int testnum_notok = 0;
 int already_failed = 0;
+int verbose = 0;
+
+#define MEMUSAGE() printf("\t\t virt: %zu\n", virtusage())
 
 static void _init_ptrv()
 {
@@ -36,9 +39,9 @@ static int validate_ptr(const void *ptr, long bytes)
     if(write(fd[1], ptr, bytes) < 0) {
         ret = 0;
     }
-    if(ret) {
+    if(ret && verbose) {
         printf("[validate_ptr] ptr %p is correct\n", ptr);
-    } else {
+    } else if(verbose) {
         printf("[validate_ptr] ptr %p is incorrect\n", ptr);
     }
     return ret;
@@ -59,7 +62,7 @@ void _fail(const char *test, const char *msg)
 void _ok(const char *test)
 {
     if(!status)
-        printf("%s: [ok]\n", test);
+        printf("%s: [ok]", test);
     testnum_ok++;
     already_failed = 0;
 }
@@ -106,6 +109,7 @@ static void align_alloc_test()
     }
     if(b)
         *b = 4;
+
     if(a)
         free(a);
     if(b)
@@ -132,12 +136,18 @@ static void valloc_test()
     ok();
 }
 
+#define RUN_TEST(tst) \
+    tst();            \
+    MEMUSAGE()
+
 int main()
 {
     _init_ptrv();
-    malloc_test();
-    align_alloc_test();
-    valloc_test();
+
+    RUN_TEST(malloc_test);
+    RUN_TEST(align_alloc_test);
+    RUN_TEST(valloc_test);
+
     _deinit_ptrv();
     printf("\nTotal of %d tests, %d passed and %d failed.\n",
            testnum_ok + testnum_notok, testnum_ok, testnum_notok);

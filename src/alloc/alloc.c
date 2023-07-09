@@ -213,6 +213,11 @@ void *valloc(size_t size)
     return aligned_alloc(getpagesize(), size);
 }
 
+size_t virtusage()
+{
+    return (size_t)max_ptr - (size_t)base_ptr;
+}
+
 int posix_memalign(void **res, size_t align, size_t len)
 {
     unsigned char *mem, *new, *end;
@@ -268,6 +273,16 @@ void *aligned_alloc(size_t align, size_t size)
 [[gnu::weak]] void *aligned_malloc(size_t align, size_t size)
 {
     return aligned_alloc(align, ((size / align) + 1) * align);
+}
+
+[[gnu::always_inline]] static inline size_t bsz(size_t in)
+{
+    size_t flip = 32 - in;
+    size_t ret = 1;
+    while(flip--) {
+        ret *= 2;
+    }
+    return ret;
 }
 
 void free(void *ptr)

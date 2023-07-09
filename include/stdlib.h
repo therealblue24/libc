@@ -96,6 +96,7 @@ void *reallocf(void *ptr, size_t size);
 
 int posix_memalign(void **memptr, size_t alignment, size_t size);
 void *aligned_alloc(size_t align, size_t size);
+size_t virtusage();
 
 #ifdef _TR24_SOURCE
 #include <detail/tr24ext.h>
